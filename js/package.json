@@ -16,7 +16,8 @@
     "grunt-phpunit": "^0.3.6",
     "grunt-wrap": "^0.3.0",
     "jshint-stylish": "^2.2.1",
-    "karma": "^1.4.1"
+    "karma": "^1.4.1",
+    "markdown-it-checkbox": "^1.1.0"
   },
   "scripts": {
     "test": "echo \"Warning: no test specified\" && exit 0"
