@@ -36,6 +36,7 @@ Util::addScript('deck', 'vendor/angular-ui-select/dist/select.min');
 Util::addScript('deck', 'vendor/markdown-it/dist/markdown-it.min');
 Util::addScript('deck', 'vendor/angular-markdown-it/dist/ng-markdownit.min');
 Util::addScript('deck', 'vendor/markdown-it-link-target/dist/markdown-it-link-target.min');
+Util::addScript('deck', 'vendor/markdown-it-checkbox/dist/markdown-it-checkbox.min');
 
 if(!\OC::$server->getConfig()->getSystemValue('debug', false)) {
 	Util::addScript('deck', 'public/app');
