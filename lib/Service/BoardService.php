@@ -34,6 +34,8 @@ use OCP\IL10N;
 use OCA\Deck\Db\Board;
 use OCA\Deck\Db\BoardMapper;
 use OCA\Deck\Db\LabelMapper;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\GenericEvent;
 
 
 class BoardService {
@@ -45,6 +47,7 @@ class BoardService {
 	private $permissionService;
 	private $notificationHelper;
 	private $assignedUsersMapper;
+	private $eventDispatcher;
 
 	public function __construct(
 		BoardMapper $boardMapper,
@@ -53,7 +56,8 @@ class BoardService {
 		AclMapper $aclMapper,
 		PermissionService $permissionService,
 		NotificationHelper $notificationHelper,
-		AssignedUsersMapper $assignedUsersMapper
+		AssignedUsersMapper $assignedUsersMapper,
+		EventDispatcher $eventDispatcher
 	) {
 		$this->boardMapper = $boardMapper;
 		$this->labelMapper = $labelMapper;
@@ -62,6 +66,7 @@ class BoardService {
 		$this->permissionService = $permissionService;
 		$this->notificationHelper = $notificationHelper;
 		$this->assignedUsersMapper = $assignedUsersMapper;
+		$this->eventDispatcher = $eventDispatcher;
 	}
 
 	public function findAll($userInfo) {
@@ -177,6 +182,11 @@ class BoardService {
 			'PERMISSION_MANAGE' => $permissions[Acl::PERMISSION_MANAGE],
 			'PERMISSION_SHARE' => $permissions[Acl::PERMISSION_SHARE]
 		]);
+		$event = new GenericEvent([
+			'id' => $new_board->getId(),
+			'entity' => $new_board
+		]);
+		$this->eventDispatcher->dispatch('\OCA\Deck::afterBoardCreate', $event);
 		return $new_board;
 
 	}
