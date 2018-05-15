@@ -26,10 +26,10 @@ import app from './App.js';
 import md from 'angular-markdown-it';
 import markdownitLinkTarget from 'markdown-it-link-target';
 
-app.config(function ($provide, $interpolateProvider, $httpProvider, $urlRouterProvider, $stateProvider, $compileProvider, markdownItConverterProvider) {
+app.config(function ($provide, $interpolateProvider, $httpProvider, $urlRouterProvider, $stateProvider, $compileProvider, markdownItConverterProvider, $logProvider) {
 	'use strict';
 	$httpProvider.defaults.headers.common.requesttoken = oc_requesttoken;
-
+	$logProvider.debugEnabled(true);
 	$compileProvider.debugInfoEnabled(true);
 
 	markdownItConverterProvider.use(markdownitLinkTarget, {
